@@ -15,6 +15,8 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import type { DesignWork } from "@/data/designWorks";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 interface WorkDetailDialogProps {
   work: DesignWork | null;
@@ -60,7 +62,7 @@ const WorkDetailDialog = ({ work, open, onOpenChange }: WorkDetailDialogProps) =
         )}
 
         {/* Info */}
-        <div className="px-6 pb-6">
+        <div className="px-6 max-md:px-3 pb-6">
           <DialogHeader>
             <div className="flex items-center gap-2 mb-2">
               <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium ${typeBadge.color}`}>
@@ -72,7 +74,15 @@ const WorkDetailDialog = ({ work, open, onOpenChange }: WorkDetailDialogProps) =
               </span>
             </div>
             <DialogTitle className="text-xl font-display">{work.title}</DialogTitle>
-            <DialogDescription>{work.description}</DialogDescription>
+            <DialogDescription >{work.description}</DialogDescription>
+            {
+              work.link && (
+
+            <Link to={work.link} target="_blank" rel="noopener noreferrer" className="!mt-5 w-full">
+              <Button className=" w-full">Informações Adicionais</Button>
+            </Link>
+              )
+            }
           </DialogHeader>
         </div>
       </DialogContent>

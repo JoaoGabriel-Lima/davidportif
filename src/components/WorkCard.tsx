@@ -10,8 +10,8 @@ interface WorkCardProps {
 
 const WorkCard = ({ work, index, onClick }: WorkCardProps) => {
   const typeBadge = work.type === "post"
-    ? { label: "POST", color: "bg-pink-500/10 text-pink-400", icon: <Image className="w-3 h-3" /> }
-    : { label: "CARROSSEL", color: "bg-blue-500/10 text-blue-400", icon: <Layers className="w-3 h-3" /> };
+    ? { label: "POST", color: "bg-orange-500/70 text-pink-50`", icon: <Image className="w-3 h-3" /> }
+    : { label: "CARROSSEL", color: "bg-orange-500/70 text-blue-50", icon: <Layers className="w-3 h-3" /> };
 
   return (
     <motion.div
@@ -39,7 +39,7 @@ const WorkCard = ({ work, index, onClick }: WorkCardProps) => {
           </span>
           {/* Slide count — top right (carousels only) */}
           {work.type === "carrossel" && (
-            <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm bg-white/10 text-white">
+            <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium backdrop-blur-sm bg-white/60 text-black">
               <Layers className="w-3 h-3" />
               {work.numberOfSlides}
             </span>
