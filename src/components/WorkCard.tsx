@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Image, Layers } from "lucide-react";
 import type { DesignWork } from "@/data/designWorks";
 
@@ -9,27 +10,29 @@ interface WorkCardProps {
 }
 
 const WorkCard = ({ work, index, onClick }: WorkCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-50px" });
+
   const typeBadge = work.type === "post"
     ? { label: "POST", color: "bg-orange-500/70 text-pink-50`", icon: <Image className="w-3 h-3" /> }
     : { label: "CARROSSEL", color: "bg-orange-500/70 text-blue-50", icon: <Layers className="w-3 h-3" /> };
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
-      className="group cursor-pointer"
+      ref={cardRef}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
+      className="group cursor-pointer break-inside-avoid mb-6"
       onClick={onClick}
     >
       <div className="relative rounded-2xl overflow-hidden card-gradient border border-border hover:border-primary/50 transition-all duration-300">
-        {/* Thumbnail */}
-        <div className="aspect-[4/3] overflow-hidden relative">
+        {/* Thumbnail — natural aspect ratio */}
+        <div className="overflow-hidden relative">
           <img
             src={work.thumbnail}
             alt={work.title}
-            className="w-full h-full object-right-top object-cover  group-hover:scale-110 transition-transform duration-500"
+            className="w-full h-auto block group-hover:scale-110 transition-transform duration-500"
             loading="lazy"
           />
           {/* Type badge — top left */}

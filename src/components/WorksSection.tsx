@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Image, Layers } from "lucide-react";
 import { designWorks, type DesignWork } from "@/data/designWorks";
 import WorkCard from "./WorkCard";
@@ -89,19 +89,20 @@ const WorksSection = () => {
           ))}
         </motion.div>
 
-        {/* Grid */}
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence mode="popLayout">
-            {paged.map((work, index) => (
-              <WorkCard
-                key={work.id}
-                work={work}
-                index={index}
-                onClick={() => setSelectedWork(work)}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Masonry grid */}
+        <div
+          key={`${activeFilter}-${currentPage}`}
+          className="columns-1 md:columns-2 lg:columns-3 gap-6"
+        >
+          {paged.map((work, index) => (
+            <WorkCard
+              key={work.id}
+              work={work}
+              index={index}
+              onClick={() => setSelectedWork(work)}
+            />
+          ))}
+        </div>
 
         {/* Pagination */}
         <WorksPagination
